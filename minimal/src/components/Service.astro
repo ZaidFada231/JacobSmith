@@ -1,0 +1,125 @@
+---
+import "../styles/global.css";
+
+interface Service {
+  title: string;
+  description: string;
+  link?: string;
+}
+
+const services: Service[] = [
+  {
+    title: "Live Performances",
+    description:
+      "Energetic live shows tailored for events, parties, and weddings.",
+  },
+  {
+    title: "Studio Recording",
+    description: "Professional vocal and instrument recording services.",
+  },
+  {
+    title: "Songwriting",
+    description:
+      "Collaborative songwriting sessions to bring your ideas to life.",
+  },
+  {
+    title: "Music Production",
+    description: "Full track production, from beats to final mastering.",
+  },
+  {
+    title: "Private Lessons",
+    description: "One-on-one guitar, piano, or vocal coaching sessions.",
+  },
+];
+---
+
+<section id="services" class="services-section">
+  <h1 class="services-title">Music Services</h1>
+  <p class="services-description">
+    Explore a range of music services designed to meet your creative needs.
+    Whether you're looking for live entertainment, recording expertise, or
+    private lessons, I’m here to help you bring your musical vision to life.
+  </p>
+
+  <div class="services-grid">
+    {
+      services.map((service) => (
+        <div class="service-card">
+          <h2 class="service-card-title">{service.title}</h2>
+          <p class="service-card-description">{service.description}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .services-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .services-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .services-description {
+    color: #cccccc;
+    font-size: 1.125rem;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .service-card {
+    background-color: #1f2937; /* dark gray */
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+    cursor: default;
+  }
+
+  .service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8);
+  }
+
+  .service-card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .service-card-description {
+    color: #cccccc;
+    font-size: 1rem;
+  }
+</style>

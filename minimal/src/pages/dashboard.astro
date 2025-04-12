@@ -1,0 +1,292 @@
+<html lang="en">
+  <head>
+    <title>Admin Dashboard</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Outfit", sans-serif;
+        background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+        color: white;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+      }
+
+      .dashboard-title {
+        margin-top: 2rem;
+        font-size: 2.75rem;
+        font-weight: 800;
+      }
+
+      .form-container {
+        margin-top: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        border-radius: 1.5rem;
+        width: 90%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .add-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .form-heading {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        font-size: 1rem;
+      }
+
+      .form-button {
+        padding: 0.9rem 1rem;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #1db954, #1ed760);
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+      }
+
+      .produced-grid {
+        margin-top: 3rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      @media (min-width: 768px) {
+        .produced-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .produced-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .produced-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition:
+          transform 0.3s,
+          background 0.3s;
+      }
+
+      .produced-card:hover {
+        transform: scale(1.03);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .produced-track-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .produced-track-description {
+        color: #cccccc;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .card-buttons {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .card-button {
+        padding: 0.6rem 1.5rem;
+        border: none;
+        border-radius: 9999px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition:
+          background-color 0.3s,
+          transform 0.2s;
+      }
+
+      .edit-button {
+        background: linear-gradient(90deg, #1db954, #1ed760);
+        color: white;
+      }
+
+      .edit-button:hover {
+        background: linear-gradient(90deg, #159b43, #17c653);
+        transform: scale(1.05);
+      }
+
+      .delete-button {
+        background: linear-gradient(90deg, #ff4e50, #f9d423);
+        color: white;
+      }
+
+      .delete-button:hover {
+        background: linear-gradient(90deg, #e14a68, #f9a825);
+        transform: scale(1.05);
+      }
+
+      .logout-button {
+        margin-top: 3rem;
+        padding: 0.75rem 2rem;
+        background: linear-gradient(90deg, #fc5c7d, #6a82fb);
+        border-radius: 9999px;
+        border: none;
+        color: white;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 class="dashboard-title">Admin Dashboard</h1>
+
+    <div class="form-container">
+      <form id="addTrackForm" class="add-form">
+        <h2 class="form-heading">Add a New Track</h2>
+        <input
+          type="text"
+          name="title"
+          placeholder="Song Title"
+          required
+          class="form-input"
+        />
+        <input
+          type="text"
+          name="description"
+          placeholder="Description"
+          required
+          class="form-input"
+        />
+        <button type="submit" class="form-button">Add New Track</button>
+      </form>
+    </div>
+
+    <div id="tracksList" class="produced-grid"></div>
+
+    <button id="logoutButton" class="logout-button">Logout</button>
+
+    <!-- Template for mapping tracks -->
+    <template id="track-card-template">
+      <div class="produced-card">
+        <h2 class="produced-track-title"></h2>
+        <p class="produced-track-description"></p>
+        <div class="card-buttons">
+          <button class="card-button edit-button">Edit</button>
+          <button class="card-button delete-button">Delete</button>
+        </div>
+      </div>
+    </template>
+
+    <script type="module">
+      import { supabase } from "/src/lib/supabaseClient.js";
+
+      async function loadTracks() {
+        const { data: tracks } = await supabase
+          .from("produced_tracks")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        const tracksList = document.getElementById("tracksList");
+        tracksList.innerHTML = "";
+
+        const template = document.getElementById("track-card-template");
+
+        tracks.forEach((track) => {
+          const card = template.content.cloneNode(true);
+
+          card.querySelector(".produced-track-title").textContent = track.title;
+          card.querySelector(".produced-track-description").textContent =
+            track.description;
+
+          const editBtn = card.querySelector(".edit-button");
+          const deleteBtn = card.querySelector(".delete-button");
+
+          editBtn.addEventListener("click", async () => {
+            const newTitle = prompt("New Title:", track.title);
+            const newDescription = prompt(
+              "New Description:",
+              track.description
+            );
+            if (newTitle && newDescription) {
+              await supabase
+                .from("produced_tracks")
+                .update({ title: newTitle, description: newDescription })
+                .eq("id", track.id);
+              loadTracks();
+            }
+          });
+
+          deleteBtn.addEventListener("click", async () => {
+            if (confirm("Are you sure you want to delete?")) {
+              await supabase
+                .from("produced_tracks")
+                .delete()
+                .eq("id", track.id);
+              loadTracks();
+            }
+          });
+
+          tracksList.appendChild(card);
+        });
+      }
+
+      document
+        .getElementById("addTrackForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const formData = new FormData(form);
+          const payload = Object.fromEntries(formData.entries());
+
+          await supabase.from("produced_tracks").insert([payload]);
+          form.reset();
+          loadTracks();
+        });
+
+      document
+        .getElementById("logoutButton")
+        .addEventListener("click", async () => {
+          await supabase.auth.signOut();
+          window.location.href = "/login";
+        });
+
+      loadTracks();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+---
+import { supabase } from "../lib/supabase.ts"; // Adjust path if needed
+
+interface ProducedTrack {
+  id: string;
+  title: string;
+  description: string;
+}
+
+const { data: tracks, error } = await supabase
+  .from("produced_tracks")
+  .select("*")
+  .order("created_at", { ascending: false });
+
+if (error) {
+  console.error("Error fetching tracks:", error);
+}
+---
+
+<section id="produced" class="produced-section">
+  <h1 class="produced-title">Music I've Produced</h1>
+  <p class="produced-subtitle">
+    A collection of original tracks that capture my sound across different
+    genres and moods. 🎛️
+  </p>
+
+  <div class="produced-grid">
+    {
+      tracks?.map((track) => (
+        <div class="produced-card">
+          <h2 class="produced-track-title">{track.title}</h2>
+          <p class="produced-track-description">{track.description}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .produced-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .produced-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  .produced-subtitle {
+    color: #aaaaaa;
+    font-size: 1.125rem;
+    font-style: italic;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .produced-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .produced-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .produced-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .produced-card {
+    background: rgba(255, 255, 255, 0.05); /* Glassy transparent */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    backdrop-filter: blur(6px);
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s,
+      background 0.3s;
+    cursor: default;
+  }
+
+  .produced-card:hover {
+    transform: scale(1.03);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 15px rgba(0, 255, 128, 0.4);
+  }
+
+  .produced-track-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+
+  .produced-track-description {
+    color: #cccccc;
+    font-size: 1rem;
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import "../styles/global.css";
+---
+
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="#about" class="navbar-link">About Me</a>
+    <a href="#music" class="navbar-link">Music</a>
+    <a href="#services" class="navbar-link">Services</a>
+    <a href="#produced" class="navbar-link">Produced</a>
+    <a href="#contact" class="navbar-link">Contact Me</a>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    width: 100%;
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar-container {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .navbar-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+    transition: color 0.3s;
+  }
+
+  .navbar-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #1db954; /* Spotify green accent */
+    transition: width 0.3s;
+  }
+
+  .navbar-link:hover {
+    color: #1db954;
+  }
+
+  .navbar-link:hover::after {
+    width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    .navbar-container {
+      gap: 1rem;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+    }
+  }
+</style>

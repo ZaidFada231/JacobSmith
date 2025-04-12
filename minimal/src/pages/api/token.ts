@@ -1,11 +1,12 @@
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = async () => {
+  // 1) Grab your Spotify client credentials from environment variables
   const clientId = import.meta.env.SPOTIFY_CLIENT_ID;
   const clientSecret = import.meta.env.SPOTIFY_CLIENT_SECRET;
   const basic = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 
-  // Get access token
+  // 2) Request an access token from Spotify
   const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {
@@ -15,22 +16,20 @@ export const GET: APIRoute = async () => {
     body: 'grant_type=client_credentials',
   });
 
+  // 3) Parse the token JSON
   const tokenData = await tokenRes.json();
-  const accessToken = tokenData.access_token;
 
-  // Your artist ID: Jacob Porter Smith
-  const artistId = '5bpbFfL4mKBewWjKpQXTKC';
+  // 4) Return the token (or an error if something failed)
+  if (tokenData.error) {
+    return new Response(JSON.stringify(tokenData), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
-  // Get artist's albums
-  const res = await fetch(`https://api.spotify.com/v1/artists/${artistId}/albums?include_groups=album,single&market=US&limit=50`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-
-  const data = await res.json();
-
-  return new Response(JSON.stringify(data), {
+  // 5) Return the token as JSON
+  return new Response(JSON.stringify(tokenData), {
+    status: 200,
     headers: { 'Content-Type': 'application/json' },
   });
 };

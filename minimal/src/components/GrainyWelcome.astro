@@ -1,0 +1,279 @@
+<body>
+  <section class="grainy-welcome-container">
+    <div class="container">
+      <svg
+        class="gr1"
+        xmlns="http://www.w3.org/2000/svg"
+        width="904"
+        height="576"
+        viewBox="0 0 904 576"
+        fill="url(#gradient)"
+      >
+        <filter id="grain">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.6"
+            stitchTiles="stitch"
+            result="colorNoise"></feTurbulence>
+          <feColorMatrix
+            in="colorNoise"
+            type="matrix"
+            values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0"></feColorMatrix>
+          <feComposite operator="in" in2="SourceGraphic" result="monoNoise"
+          ></feComposite>
+          <feBlend in="SourceGraphic" in2="monoNoise" mode="hard-light"
+          ></feBlend>
+        </filter>
+
+        <filter id="innershadow">
+          <feFlood flood-color="rgb(255,255,255,0.2)"></feFlood>
+
+          <feComposite operator="out" in2="SourceGraphic"></feComposite>
+
+          <feMorphology operator="dilate" radius="0"></feMorphology>
+          <feGaussianBlur stdDeviation="15"></feGaussianBlur>
+          <feOffset dx="-7" dy="-45"></feOffset>
+
+          <feComposite operator="atop" in2="SourceGraphic"></feComposite>
+        </filter>
+
+        <linearGradient id="gradient">
+          <stop stop-color="var(--orange)" offset="30%"></stop>
+          <stop stop-color="var(--blue)" offset="100%"></stop>
+        </linearGradient>
+
+        <path
+          filter="url(#grain) url(#innershadow)"
+          d="M422.387 198.227L422.391 198.219L422.396 198.211C502.319 60.8445 622.539 0.0311147 722.711 0.502722C772.8 0.738534 817.863 16.2941 850.397 45.241C882.924 74.1814 902.964 116.538 902.964 170.46C902.964 386.353 722.037 540.046 503.397 569.464C391.377 584.537 274.916 566.55 182.513 516.836C90.1201 467.127 21.7931 385.709 5.95884 273.89C-0.102654 231.085 -0.934731 202.296 2.56416 184.102C4.31299 175.009 7.13492 168.612 10.881 164.434C14.6125 160.271 19.2937 158.273 24.8606 158.03C30.4474 157.786 36.934 159.312 44.2331 162.232C51.5277 165.151 59.5994 169.448 68.3466 174.712C81.0437 182.352 95.1262 192.005 110.285 202.396C116.019 206.327 121.908 210.364 127.934 214.437C171.8 244.087 222.893 275.643 274.278 281.98C299.987 285.15 325.778 282.01 350.771 269.162C375.759 256.315 399.914 233.783 422.387 198.227Z"
+        ></path>
+
+        <radialGradient id="G1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop
+            offset="0%"
+            style="stop-color:rgb(119,183,167,0.7);    stop-opacity:1"></stop>
+          <stop
+            offset="100%"
+            style="stop-color:rgb(119,183,167); stop-opacity:0"></stop>
+        </radialGradient>
+        <ellipse
+          cx="350"
+          cy="400"
+          rx="300"
+          ry="200"
+          clip-path="url(#C)"
+          fill="url(#G1)"></ellipse>
+      </svg>
+
+      <svg
+        class="gr2"
+        xmlns="http://www.w3.org/2000/svg"
+        width="600"
+        height="600"
+        viewBox="0 0 600 600"
+        fill="url(#gradient2)"
+      >
+        <filter id="grain">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.6"
+            stitchTiles="stitch"
+            result="colorNoise"></feTurbulence>
+          <feColorMatrix
+            in="colorNoise"
+            type="matrix"
+            values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0"></feColorMatrix>
+          <feComposite operator="in" in2="SourceGraphic" result="monoNoise"
+          ></feComposite>
+          <feBlend in="SourceGraphic" in2="monoNoise" mode="hard-light"
+          ></feBlend>
+        </filter>
+
+        <filter id="innershadow2">
+          <feFlood flood-color="rgb(255,255,255,0.1)"></feFlood>
+
+          <feComposite operator="out" in2="SourceGraphic"></feComposite>
+
+          <feMorphology operator="dilate" radius="1"></feMorphology>
+          <feGaussianBlur stdDeviation="15"></feGaussianBlur>
+          <feOffset dx="-20" dy="0"></feOffset>
+
+          <feComposite operator="atop" in2="SourceGraphic"></feComposite>
+        </filter>
+
+        <linearGradient id="gradient2" gradientTransform="rotate(0)">
+          <stop stop-color="var(--orange)" offset="30%"></stop>
+          <stop stop-color="var(--green)" offset="100%"></stop>
+        </linearGradient>
+
+        <circle
+          cx="300"
+          cy="300"
+          r="300"
+          filter="url(#grain) url(#innershadow2)"></circle>
+      </svg>
+      <p class="text">JACOB PORTER <br />SMITH</p>
+    </div>
+  </section>
+  <script>
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+
+      // Calculate rotation angle based on scroll position
+      const rotation = scrollY * 0.2; // Adjust speed here (higher = faster spin)
+
+      const gr1 = document.querySelector(".gr1");
+      const gr2 = document.querySelector(".gr2");
+
+      if (gr1) {
+        gr1.style.transform = `rotate(${rotation}deg)`;
+      }
+      if (gr2) {
+        gr2.style.transform = `rotate(${rotation * 0.8}deg)`; // Slightly slower second one for nice effect
+      }
+    });
+  </script>
+</body>
+
+<section id="about" class="about-me-container">
+  <div class="about-content">
+    <h2 class="about-title">About Me</h2>
+    <p class="about-description">
+      Hey, I'm Jacob Porter Smith — a music producer, songwriter, and performer
+      passionate about crafting sonic experiences that resonate. Whether it’s a
+      synthwave journey, a heartfelt acoustic ballad, or a pulse-pounding EDM
+      track, I bring ideas to life through sound. Welcome to my creative
+      universe. 🎶
+    </p>
+  </div>
+</section>
+
+<style>
+  :root {
+    --blue: #2445c8;
+    --orange: #cf9862;
+    --black: #000000;
+    --green: #436354;
+    --orange2: #cc9b68;
+  }
+  .about-me-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .about-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-description {
+    font-size: 1.125rem;
+    color: #cccccc;
+    max-width: 700px;
+    line-height: 1.8;
+  }
+
+  body {
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: "Futura";
+    overflow-x: hidden;
+  }
+  .grainy-welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* if needed */
+    height: 80vh;
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px;
+  }
+
+  .container {
+    position: relative;
+    width: 100%;
+    max-width: 904px;
+    margin: 0 auto;
+  }
+
+  .gr1 {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .gr2 {
+    position: relative;
+    top: -4.5em;
+    z-index: 0;
+  }
+
+  .gr1,
+  .gr2 {
+    transform-origin: center center;
+    transition: transform 0.1s linear;
+    will-change: transform;
+  }
+
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 5rem;
+    line-height: 1;
+    text-align: center;
+    color: white;
+    margin: 0; /* remove the big margin */
+  }
+
+  @media (max-width: 600px) {
+    .grainy-welcome-container {
+      height: auto; /* instead of 100vh, so the entire SVG is visible */
+      padding: 2rem 0; /* optional space top/bottom */
+    }
+
+    /* Let the container go full width if needed */
+    .grainy-welcome-container .container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .gr1 {
+      z-index: 1;
+      position: static; /* or keep absolute if you prefer, but ensure it's fully visible */
+      max-width: 85%;
+      height: auto; /* always preserves aspect ratio */
+      margin: 0 2rem; /* center horizontally */
+    }
+
+    .gr2 {
+      z-index: 0;
+      position: static;
+      max-width: 60%;
+      height: auto;
+      margin: -20rem 1rem 0;
+    }
+
+    .text {
+      font-size: 2.5rem;
+    }
+    .about-title {
+      font-size: 2rem;
+    }
+
+    .about-description {
+      font-size: 1rem;
+      padding: 0 1rem;
+    }
+  }
+</style>
