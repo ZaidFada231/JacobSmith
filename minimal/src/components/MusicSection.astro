@@ -213,6 +213,51 @@ interface Album {
         height: 2rem;
       }
 
+      .explore-message {
+        font-size: 1rem;
+        color: white;
+        text-align: center;
+      }
+
+      .desktop-message {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .mobile-message {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .bounce-arrow {
+        display: inline-block;
+        animation: bounce 1s infinite alternate;
+      }
+
+      /* Bounce animation */
+      @keyframes bounce {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(8px);
+        }
+      }
+
+      /* Switch on mobile */
+      @media (max-width: 640px) {
+        .desktop-message {
+          display: none;
+        }
+        .mobile-message {
+          display: flex;
+        }
+      }
+
       @media (max-width: 600px) {
         .discover-header {
           font-size: 2rem;
@@ -299,13 +344,18 @@ interface Album {
           ))
         }
       </div>
-
-      <!-- Modal -->
     </div>
 
-    <p class="mt-16 text-md text-white/70 italic">
-      Hover to pause, explore to experience.
-    </p>
+    <div class="explore-message">
+      <p class="desktop-message">
+        Hover to pause, click an album to explore its songs.
+      </p>
+      <p class="mobile-message">
+        Scroll to explore, tap to see the songs <span class="bounce-arrow"
+          >&rarr;</span
+        >
+      </p>
+    </div>
   </section>
   <div id="albumModal" class="album-modal hidden">
     <div class="album-modal-content">
@@ -385,4 +435,6 @@ interface Album {
       }
     }
   </script>
+
+
 </html>

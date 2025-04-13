@@ -4,18 +4,43 @@ import "../styles/global.css";
 
 <nav class="navbar">
   <div class="navbar-container">
-    <a href="#about" class="navbar-link">About Me</a>
-    <a href="#music" class="navbar-link">Music</a>
-    <a href="#services" class="navbar-link">Services</a>
-    <a href="#produced" class="navbar-link">Produced</a>
-    <a href="#contact" class="navbar-link">Contact Me</a>
+    <div class="navbar-left">
+      <a href="/" class="navbar-logo">
+        <img src="/jlogo.png" alt="Jacob Logo" class="logo-img" />
+      </a>
+    </div>
+    <div class="navbar-links">
+      <a href="#about" class="navbar-link">About Me</a>
+      <a href="#music" class="navbar-link">Music</a>
+      <a href="#services" class="navbar-link">Services</a>
+      <a href="#produced" class="navbar-link">Produced</a>
+      <a href="#contact" class="navbar-link">Contact Me</a>
+    </div>
+    <div class="navbar-hamburger" id="hamburger">&#9776;</div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">About Me</a>
+    <a href="#music" class="mobile-link">Music</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#produced" class="mobile-link">Produced</a>
+    <a href="#contact" class="mobile-link">Contact Me</a>
   </div>
 </nav>
+
+<script type="text/javascript">
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("open");
+  });
+</script>
 
 <style>
   .navbar {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -23,13 +48,29 @@ import "../styles/global.css";
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .navbar-left {
+    padding-left: 0.5rem;
   }
 
   .navbar-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-links {
     display: flex;
     gap: 2rem;
-    align-items: center;
+  }
+  .logo-img {
+    height: 48px; /* or whatever looks good */
+    width: auto;
+    object-fit: contain;
   }
 
   .navbar-link {
@@ -48,7 +89,7 @@ import "../styles/global.css";
     height: 2px;
     bottom: -4px;
     left: 0;
-    background-color: #1db954; /* Spotify green accent */
+    background-color: #1db954;
     transition: width 0.3s;
   }
 
@@ -60,11 +101,50 @@ import "../styles/global.css";
     width: 100%;
   }
 
+  .navbar-hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+    padding: 0.5rem;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  .mobile-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+    transition: color 0.3s;
+  }
+
+  .mobile-link:hover {
+    color: #1db954;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  /* Mobile settings */
   @media (max-width: 640px) {
-    .navbar-container {
-      gap: 1rem;
-      font-size: 0.9rem;
-      flex-wrap: wrap;
+    .navbar-links {
+      display: none; /* Hide links */
+    }
+
+    .navbar-hamburger {
+      display: block;
+      margin-left: auto; /* Push it to the right */
     }
   }
 </style>

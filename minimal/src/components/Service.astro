@@ -9,26 +9,22 @@ interface Service {
 
 const services: Service[] = [
   {
-    title: "Live Performances",
-    description:
-      "Energetic live shows tailored for events, parties, and weddings.",
-  },
-  {
-    title: "Studio Recording",
-    description: "Professional vocal and instrument recording services.",
+    title: "Singing",
+    description: "Professional vocal performances to bring your music to life.",
   },
   {
     title: "Songwriting",
     description:
-      "Collaborative songwriting sessions to bring your ideas to life.",
+      "Custom lyrics and melodies crafted to fit your artistic vision.",
   },
   {
     title: "Music Production",
-    description: "Full track production, from beats to final mastering.",
+    description:
+      "Full song production — from idea development to a fully produced track.",
   },
   {
-    title: "Private Lessons",
-    description: "One-on-one guitar, piano, or vocal coaching sessions.",
+    title: "Mixing",
+    description: "Balancing and polishing your track to a professional sound.",
   },
 ];
 ---
@@ -90,14 +86,8 @@ const services: Service[] = [
     }
   }
 
-  @media (min-width: 1024px) {
-    .services-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
   .service-card {
-    background-color: #1f2937; /* dark gray */
+    background-color: #1f2937;
     border-radius: 1.5rem;
     padding: 2rem;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
