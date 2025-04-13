@@ -143,17 +143,48 @@
       track, I bring ideas to life through sound. Welcome to my creative
       universe. 🎶
     </p>
+    <div class="about-images">
+      <img src="/j1.jpeg" alt="Studio" class="about-image" />
+      <img src="/j2.JPG" alt="Music creation" class="about-image" />
+    </div>
   </div>
 </section>
 
 <style>
   :root {
-    --blue: #2445c8;
-    --orange: #cf9862;
     --black: #000000;
-    --green: #436354;
-    --orange2: #cc9b68;
   }
+  .about-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: center;
+  }
+
+  .about-image {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+    object-fit: cover;
+  }
+
+  .about-image:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 30px rgba(0, 255, 128, 0.4);
+  }
+
+  @media (min-width: 768px) {
+    .about-images {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
   .about-me-container {
     display: flex;
     flex-direction: column;
@@ -174,7 +205,6 @@
   .about-description {
     font-size: 1.125rem;
     color: #cccccc;
-    max-width: 700px;
     line-height: 1.8;
   }
 
