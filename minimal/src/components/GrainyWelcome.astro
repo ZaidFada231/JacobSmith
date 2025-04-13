@@ -36,10 +36,10 @@
 
           <feComposite operator="atop" in2="SourceGraphic"></feComposite>
         </filter>
-
         <linearGradient id="gradient">
-          <stop stop-color="var(--orange)" offset="30%"></stop>
-          <stop stop-color="var(--blue)" offset="100%"></stop>
+          <!-- #555 = medium gray, #aaa = lighter gray -->
+          <stop offset="30%" stop-color="#555"></stop>
+          <stop offset="100%" stop-color="#aaa"></stop>
         </linearGradient>
 
         <path
@@ -48,13 +48,11 @@
         ></path>
 
         <radialGradient id="G1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-          <stop
-            offset="0%"
-            style="stop-color:rgb(119,183,167,0.7);    stop-opacity:1"></stop>
-          <stop
-            offset="100%"
-            style="stop-color:rgb(119,183,167); stop-opacity:0"></stop>
+          <!-- #888 = medium gray, with fade to transparent -->
+          <stop offset="0%" style="stop-color:#888; stop-opacity:0.7"></stop>
+          <stop offset="100%" style="stop-color:#888; stop-opacity:0"></stop>
         </radialGradient>
+
         <ellipse
           cx="350"
           cy="400"
@@ -101,8 +99,9 @@
         </filter>
 
         <linearGradient id="gradient2" gradientTransform="rotate(0)">
-          <stop stop-color="var(--orange)" offset="30%"></stop>
-          <stop stop-color="var(--green)" offset="100%"></stop>
+          <!-- #444 = darker gray, #ccc = lighter gray -->
+          <stop offset="30%" stop-color="#444"></stop>
+          <stop offset="100%" stop-color="#ccc"></stop>
         </linearGradient>
 
         <circle
