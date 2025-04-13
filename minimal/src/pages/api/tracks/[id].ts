@@ -5,13 +5,12 @@ import type { APIContext } from 'astro';
 export async function PUT({ request, params }: APIContext) {
   const id = params.id;
   const body = await request.json();
-  const { title, description } = body;
+  const { title, description, spotify_url } = body;
 
-  const { error } = await supabase
-    .from('produced_tracks')
-    .update({ title, description })
+  const { error } =await supabase.from('produced_tracks')
+    .update({ title, description, spotify_url })
     .eq('id', id);
-
+  
   if (error) {
     console.error('Error updating track:', error);
     return new Response('Failed to update track', { status: 500 });

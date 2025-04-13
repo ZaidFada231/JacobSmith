@@ -1,10 +1,11 @@
 ---
-import { supabase } from "../lib/supabase.ts"; // Adjust path if needed
+import { supabase } from "../lib/supabase.ts";
 
 interface ProducedTrack {
   id: string;
   title: string;
   description: string;
+  spotify_url?: string;
 }
 
 const { data: tracks, error } = await supabase
@@ -30,6 +31,16 @@ if (error) {
         <div class="produced-card">
           <h2 class="produced-track-title">{track.title}</h2>
           <p class="produced-track-description">{track.description}</p>
+          {track.spotify_url && (
+            <a
+              href={track.spotify_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="spotify-link"
+            >
+              &#127925; Listen on Spotify
+            </a>
+          )}
         </div>
       ))
     }
@@ -110,5 +121,20 @@ if (error) {
   .produced-track-description {
     color: #cccccc;
     font-size: 1rem;
+  }
+  .spotify-link {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #1db954; /* Spotify green */
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 9999px;
+    transition: background-color 0.3s;
+  }
+
+  .spotify-link:hover {
+    background-color: #159b43;
   }
 </style>

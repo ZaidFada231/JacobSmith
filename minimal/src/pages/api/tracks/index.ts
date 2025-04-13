@@ -18,10 +18,12 @@ export async function GET() {
 
 export async function POST({ request }: APIContext) {
   const body = await request.json();
-  const { title, description } = body;
+  const { title, description, spotify_url } = body;
 
-  const { error } = await supabase.from('produced_tracks').insert([{ title, description }]);
-
+  const { error } = await supabase.from('produced_tracks').insert([
+    { title, description, spotify_url }
+  ]);
+  
   if (error) {
     console.error('Error adding track:', error);
     return new Response('Failed to add track', { status: 500 });

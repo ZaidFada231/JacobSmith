@@ -206,6 +206,13 @@
           required
           class="form-input"
         />
+        <input
+          type="url"
+          name="spotify_url"
+          placeholder="Spotify URL"
+          required
+          class="form-input"
+        />
         <button type="submit" class="form-button">Add New Track</button>
       </form>
     </div>
@@ -219,6 +226,10 @@
       <div class="produced-card">
         <h2 class="produced-track-title"></h2>
         <p class="produced-track-description"></p>
+        <a
+          class="produced-track-spotify"
+          target="_blank"
+          style="color: #1DB954; text-decoration: none; font-weight: bold;"></a>
         <div class="card-buttons">
           <button class="card-button edit-button">Edit</button>
           <button class="card-button delete-button">Delete</button>
@@ -242,6 +253,13 @@
           card.querySelector(".produced-track-title").textContent = track.title;
           card.querySelector(".produced-track-description").textContent =
             track.description;
+          const spotifyLink = card.querySelector(".produced-track-spotify");
+          if (track.spotify_url) {
+            spotifyLink.href = track.spotify_url;
+            spotifyLink.textContent = "Listen on Spotify";
+          } else {
+            spotifyLink.style.display = "none";
+          }
 
           const editBtn = card.querySelector(".edit-button");
           const deleteBtn = card.querySelector(".delete-button");
@@ -252,14 +270,16 @@
               "New Description:",
               track.description
             );
+            const newURL = prompt("New URL:", track.spotify_url);
 
-            if (newTitle && newDescription) {
+            if (newTitle && newDescription && newURL) {
               await fetch(`/api/tracks/${track.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                   title: newTitle,
                   description: newDescription,
+                  spotify_url: newURL,
                 }),
               });
               loadTracks();
