@@ -24,16 +24,6 @@ interface Album {
     />
 
     <style>
-      .hidden {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.5s ease;
-      }
-
-      #music {
-        position: relative; /* ADD this */
-      }
-
       .spotify-link {
         display: inline-block;
         margin-top: 2rem;
@@ -127,39 +117,6 @@ interface Album {
 
       .album-card:hover .album-img {
         filter: brightness(70%);
-      }
-
-      /* Arrow Hint */
-      .scroll-hint {
-        position: absolute;
-        top: 50%;
-        right: 1rem;
-        font-size: 2.5rem;
-        animation: bounce 1s infinite;
-        z-index: 10;
-        color: white;
-        opacity: 1;
-        transform: translateY(-50%);
-        transition: opacity 0.5s ease;
-        pointer-events: none;
-      }
-
-      /* Bouncing animation */
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(-50%) translateX(0);
-        }
-        50% {
-          transform: translateY(-50%) translateX(10px);
-        }
-      }
-
-      /* Only show scroll hint on small screens */
-      @media (max-width: 600px) {
-        .scroll-hint {
-          display: block;
-        }
       }
 
       .album-title {
@@ -345,7 +302,6 @@ interface Album {
 
       <!-- Modal -->
     </div>
-    <div id="scrollHint" class="scroll-hint hidden">&xrarr;</div>
 
     <p class="mt-16 text-md text-white/70 italic">
       Hover to pause, explore to experience.
@@ -428,26 +384,5 @@ interface Album {
           "<li style='color:red;'>Failed to load tracks.</li>";
       }
     }
-
-    const scrollHint = document.getElementById("scrollHint");
-    const carouselWrapper = document.querySelector(".carousel-wrapper");
-
-    if (window.innerWidth <= 600) {
-      scrollHint.classList.remove("hidden");
-
-      let scrolled = false;
-      carouselWrapper.addEventListener(
-        "scroll",
-        () => {
-          if (!scrolled) {
-            scrollHint.classList.add("hidden");
-            scrolled = true;
-          }
-        },
-        { passive: true } // <- helps with touch events!
-      );
-    }
   </script>
-
-
 </html>
