@@ -171,10 +171,32 @@ interface Album {
         border-radius: 1.5rem;
         width: 90%;
         max-width: 600px;
-        max-height: 90%;
+        max-height: 60%;
         overflow-y: auto;
         position: relative;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+        scrollbar-width: thin; /* for Firefox */
+        scrollbar-color: #1db954 rgba(0, 0, 0, 0.2); /* for Firefox */
+      }
+
+      /* Chrome, Edge, Safari */
+      .album-modal-content::-webkit-scrollbar {
+        width: 6px; /* Make it a little slimmer */
+      }
+
+      .album-modal-content::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 2px; /* Push track inward */
+      }
+
+      .album-modal-content::-webkit-scrollbar-thumb {
+        background-color: #1db954; /* Spotify green */
+        border-radius: 10px;
+        border: 2px solid white; /* White "border" around thumb to push it inward */
       }
 
       .modal-close-button {
