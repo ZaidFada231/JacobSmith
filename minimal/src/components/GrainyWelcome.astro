@@ -159,7 +159,6 @@
     flex-direction: column;
     gap: 1.5rem;
     margin-top: 2rem;
-    align-items: center;
   }
 
   .about-image {
@@ -176,6 +175,11 @@
   .about-image:hover {
     transform: scale(1.03);
     box-shadow: 0 8px 30px rgba(0, 255, 128, 0.4);
+  }
+  @media (max-width: 768px) {
+    .about-images {
+      align-items: center;
+    }
   }
 
   @media (min-width: 768px) {
