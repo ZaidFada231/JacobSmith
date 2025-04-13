@@ -57,15 +57,24 @@
         color: white;
         font-size: 1rem;
       }
-
       .form-button {
+        width: 100%; /* ✅ make button full width */
         padding: 0.9rem 1rem;
         border-radius: 9999px;
         background: linear-gradient(90deg, #1db954, #1ed760);
         color: white;
         font-weight: bold;
         border: none;
+        font-size: 1rem;
         cursor: pointer;
+        transition:
+          background 0.3s,
+          transform 0.3s;
+      }
+
+      .form-button:hover {
+        background: linear-gradient(90deg, #159b43, #17c653);
+        transform: scale(1.05);
       }
 
       .produced-grid {
@@ -214,13 +223,9 @@
     </template>
 
     <script type="module">
-      import { supabase } from "/src/lib/supabaseClient.js";
-
       async function loadTracks() {
-        const { data: tracks } = await supabase
-          .from("produced_tracks")
-          .select("*")
-          .order("created_at", { ascending: false });
+        const res = await fetch("/api/tracks");
+        const tracks = await res.json();
 
         const tracksList = document.getElementById("tracksList");
         tracksList.innerHTML = "";
@@ -243,21 +248,23 @@
               "New Description:",
               track.description
             );
+
             if (newTitle && newDescription) {
-              await supabase
-                .from("produced_tracks")
-                .update({ title: newTitle, description: newDescription })
-                .eq("id", track.id);
+              await fetch(`/api/tracks/${track.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  title: newTitle,
+                  description: newDescription,
+                }),
+              });
               loadTracks();
             }
           });
 
           deleteBtn.addEventListener("click", async () => {
             if (confirm("Are you sure you want to delete?")) {
-              await supabase
-                .from("produced_tracks")
-                .delete()
-                .eq("id", track.id);
+              await fetch(`/api/tracks/${track.id}`, { method: "DELETE" });
               loadTracks();
             }
           });
@@ -274,7 +281,12 @@
           const formData = new FormData(form);
           const payload = Object.fromEntries(formData.entries());
 
-          await supabase.from("produced_tracks").insert([payload]);
+          await fetch("/api/tracks", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
           form.reset();
           loadTracks();
         });
@@ -282,7 +294,7 @@
       document
         .getElementById("logoutButton")
         .addEventListener("click", async () => {
-          await supabase.auth.signOut();
+          // Just redirect for now
           window.location.href = "/login";
         });
 
