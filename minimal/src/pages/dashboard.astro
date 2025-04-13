@@ -50,6 +50,8 @@
 
       .form-input {
         width: 100%;
+        box-sizing: border-box; /* ⭐ add this */
+
         padding: 0.9rem 1rem;
         border-radius: 0.75rem;
         background: rgba(255, 255, 255, 0.1);
@@ -59,6 +61,8 @@
       }
       .form-button {
         width: 100%; /* ✅ make button full width */
+        box-sizing: border-box; /* ⭐ important line */
+
         padding: 0.9rem 1rem;
         border-radius: 9999px;
         background: linear-gradient(90deg, #1db954, #1ed760);
