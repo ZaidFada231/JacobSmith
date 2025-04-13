@@ -9,6 +9,7 @@ import "../styles/global.css";
         <img src="/jlogo.png" alt="Jacob Logo" class="logo-img" />
       </a>
     </div>
+
     <div class="navbar-links">
       <a href="#about" class="navbar-link">About Me</a>
       <a href="#music" class="navbar-link">Music</a>
@@ -16,6 +17,34 @@ import "../styles/global.css";
       <a href="#produced" class="navbar-link">Produced</a>
       <a href="#contact" class="navbar-link">Contact Me</a>
     </div>
+
+    <div class="navbar-external-links">
+      <a
+        href="https://open.spotify.com/artist/5bpbFfL4mKBewWjKpQXTKC"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="external-link spotify-button"
+      >
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg"
+          alt="Spotify"
+          class="external-icon"
+        />
+      </a>
+      <a
+        href="https://music.apple.com/us/artist/jacob-smith/1570760913"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="external-link apple-button"
+      >
+        <img
+          src="https://www.svgrepo.com/show/349299/apple-music.svg"
+          alt="Apple Music"
+          class="external-icon"
+        />
+      </a>
+    </div>
+
     <div class="navbar-hamburger" id="hamburger">&#9776;</div>
   </div>
 
@@ -25,6 +54,18 @@ import "../styles/global.css";
     <a href="#services" class="mobile-link">Services</a>
     <a href="#produced" class="mobile-link">Produced</a>
     <a href="#contact" class="mobile-link">Contact Me</a>
+    <a
+      href="https://open.spotify.com/artist/5bpbFfL4mKBewWjKpQXTKC"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mobile-link">Spotify</a
+    >
+    <a
+      href="https://music.apple.com/us/artist/jacob-smith/1570760913"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mobile-link">Apple Music</a
+    >
   </div>
 </nav>
 
@@ -38,6 +79,58 @@ import "../styles/global.css";
 </script>
 
 <style>
+  .navbar-external-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .external-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: white;
+    transition:
+      background-color 0.3s,
+      transform 0.3s;
+  }
+
+  .external-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Specific styles for each button */
+  .spotify-button {
+    background-color: #1db954;
+  }
+
+  .spotify-button:hover {
+    background-color: #159b43;
+    transform: scale(1.05);
+  }
+
+  .apple-button {
+    background-color: #fc5c7d;
+  }
+
+  .apple-button:hover {
+    background-color: #e14a68;
+    transform: scale(1.05);
+  }
+
+  /* Hide the external buttons on mobile */
+  @media (max-width: 640px) {
+    .navbar-external-links {
+      display: none;
+    }
+  }
+
   .navbar {
     width: 100%;
     padding: 1rem 0;
